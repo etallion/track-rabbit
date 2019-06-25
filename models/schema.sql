@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS trackrabbit;
+CREATE DATABASE trackrabbit;
+
+DROP DATABASE IF EXISTS testdb;
+CREATE DATABASE testdb;

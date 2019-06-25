@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Example</h5>
+          <p>{{#each examples}}
+            <strong>ID</strong>: {{this.id}}</p>
+          <p>
+          <p>
+            <strong>Text</strong>: {{this.text}}</p>
+          <p><strong>Description:</strong> {{this.description}}</p>
+          <p> <strong>Date Created:</strong> {{this.createdAt}}</p>
+            <p> <strong>Mood:</strong> {{this.mood}}</p>
+            {{/each}}
+            <a href="/">← Back To Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+       

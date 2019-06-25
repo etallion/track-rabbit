@@ -1,0 +1,88 @@
+.list-group-item {
+  line-height: 2.5;
+}
+
+h1 {
+  color: #c63441;
+  font-family: "Permanent Marker", cursive;
+}
+
+h3 {
+  color: #c63441;
+  font-family: "Raleway", sans-serif;
+}
+
+body {
+  background-image: url("background.png");
+  background-repeat: repeat;
+}
+
+.jumbotron {
+  background: #96bebe;
+  text-align: center;
+  color: #c63441;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.rabbitLogo {
+  max-width: 75px;
+}
+
+.panel-primary {
+  border-color: #96bebe;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.panel-heading {
+  background: #96bebe;
+  background-color: #96bebe;
+}
+
+.panel-primary > .panel-heading {
+  background: #96bebe;
+  background-color: #96bebe;
+  border-color: #96bebe;
+}
+
+.btn-primary {
+  background-color: #96bebe;
+  border-color: #96bebe;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.button-col {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.sad{
+  background-color:rgb(158, 189, 189);
+  color: rgb(223, 225, 226);
+}
+
+.neutral{
+  background-color: rgb(159, 117, 145);
+  color: rgb(245, 190, 231);
+}
+
+.happy{
+  background-color: rgb(184, 66, 70);
+  color: rgb(243, 184, 184);
+}
+
+.dateGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 1px;
+}
+
+.dateblock{
+  width: 150px;
+  height: 150px;
+  padding :20px 20px 20px 20px;
+}
