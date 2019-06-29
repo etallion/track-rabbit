@@ -3,13 +3,10 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Day.findAll().then(function(dbDays) {
       res.render("index", {
-        msg: "Welcome!",
-        days: dbDays
+        msg: "Welcome!"
       });
     });
-  });
 
   // Load mood page
   app.get("/mood", function(req, res) {

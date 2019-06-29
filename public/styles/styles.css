@@ -71,7 +71,7 @@ body {
 }
 
 .happy{
-  background-color: rgb(184, 66, 70);
+  background-color: rgb(211, 78, 82);
   color: rgb(243, 184, 184);
 }
 
@@ -85,4 +85,17 @@ body {
   width: 150px;
   height: 150px;
   padding :20px 20px 20px 20px;
+}
+
+.Untracked{
+  background-color: rgb(211, 208, 208);
+  
+}
+
+a{
+  color: rgb(63, 62, 62);
+}
+
+.selectedModalButton{
+  background-color: lightslategray;
 }

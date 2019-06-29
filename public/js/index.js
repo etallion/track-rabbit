@@ -1,16 +1,17 @@
 
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
 var $monthView = $("#monthView");
+var $moodSelection = null;
+var $activitySelection = null;
+var untrackedDate = null;
 
 
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveDay: function(day) {
+  saveDay: function(day){
+    console.log(day, untrackedDate);
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -22,7 +23,7 @@ var API = {
   },
   getDays: function() {
     return $.ajax({
-      url: "api/days",
+      url: "api/days/" + userID,
       type: "GET"
     });
   },
@@ -67,28 +68,48 @@ if (!localStorage.getItem("trackRabbit")) {
 
 const userID = localStorage.getItem("trackRabbit");
 
-// refreshExamples gets new examples from the db and repopulates the list
+// refreshExamples onload and get 30 of the most recent day post
 var refreshExamples = function() {
-  API.getDays().then(function(data) {
-    var $days = data.map(function(day) {
-      var $a = $("<a>")
-        .text(day.mood)
-        .attr("href", "/mood/" + day.id);
 
-      var $li = $("<li>")
+  API.getDays().then(function(data) {
+    console.log("refreshed");
+    var $days = data.map(function(day) {
+      
+      if(day.mood === "Untracked"){
+
+        var $actionElement = $("<button>");
+        $actionElement.attr({
+          "type": "button",
+          "data-toggle": "modal",
+          "data-target": "#exampleModal",
+          "data-date": day.calendarDate,
+          "class": "btn btn-info untrackedbtn"
+        })
+        .html(`<p><b> Click to Track <br>${day.calendarDate}</b></p>`);
+      } else {
+          var $actionElement = $("<div>")
+            .html(" " + day.mood +  "<br>" + day.activity + "<br>" + day.calendarDate);
+            //.attr("data-id", day-id);
+      }
+
+      var $span = $("<span>")
         .attr({
-          class: "list-group-item",
           "data-id": day.id
         })
-        .append($a);
-
-      return $li;
+        .addClass(day.mood).addClass("dateblock")
+        .append($actionElement);
+        
+        return $span;
+      
     });
 
     $monthView.empty();
     $monthView.append($days);
   });
 };
+
+//Request days for user
+refreshExamples();
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
@@ -126,8 +147,43 @@ var handleDeleteBtnClick = function() {
 };
 
 // Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+//$submitBtn.on("click", handleFormSubmit);
+//$exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+$(".moodBtn").on("click", function() {
+  console.log("mood button clicked");
+  $moodSelection = $(this);
+  $(this).addClass('selectedModalButton');
+});
+
+$(".activityBtn").on("click", function() {
+  console.log("activity button clicked");
+  $activitySelection = $(this);
+  $(this).addClass('selectedModalButton');
+});
+
+$(document).on("click", ".untrackedbtn", function(){
+  console.log("untracked button clicked");
+  console.log($(this).data("date"));
+  untrackedDate = $(this).data("date");
+});
+
+$(".modal-save").on("click", function() {
+  console.log("modal submit button clicked");
+  if($activitySelection !== null && $moodSelection !== null){
+    var day = {
+      calendarDate: untrackedDate,
+      mood: $moodSelection.data("value"),
+      activity: $activitySelection.data("value"),
+      UserId: userID
+    }
+    $moodSelection = null;
+    $activitySelection = null;
+    API.saveDay(day).then(res =>{
+     console.log("hello", res);
+    });
+  }
+});
 
 
 // // for client side date check
