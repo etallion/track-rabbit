@@ -54,6 +54,7 @@ var API = {
       type: "POST"
     }).then(function(res) {
       localStorage.setItem("trackRabbit", res.id);
+      userID = localStorage.getItem("trackRabbit");
       console.log(res.createdAt);
     });
   }
