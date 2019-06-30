@@ -85,7 +85,7 @@ var refreshExamples = function() {
           "data-date": day.calendarDate,
           "class": "btn btn-info untrackedbtn"
         })
-        .html(`<p><b> Click to Track <br>${day.calendarDate}</b></p>`);
+        .html(`<p><b>Track It!<br>${day.calendarDate.split('-').splice(1,2).join('/')}</b></p>`);
       } else {
           var $actionElement = $("<div>")
             .html(" " + day.mood +  "<br>" + day.activity + "<br>" + day.calendarDate);
@@ -180,7 +180,15 @@ $(".modal-save").on("click", function() {
     $moodSelection = null;
     $activitySelection = null;
     API.saveDay(day).then(res =>{
-     console.log("hello", res);
+    //Close window and update calendar
+    $updatedDateBlock = $('.untrackedbtn[data-date=' + untrackedDate +']').parent();
+    $updatedDateBlock.addClass(day.mood);
+    $updatedDateBlock.removeClass('Untracked');
+    $updatedDateBlock.html(" " + day.mood +  "<br>" + day.activity + "<br>" + day.calendarDate);
+
+    $('#exampleModal').modal('hide');
+    $('.moodBtn').removeClass('selectedModalButton');
+    $('.activityBtn').removeClass('selectedModalButton');
     });
   }
 });
